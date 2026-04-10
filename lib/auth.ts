@@ -20,16 +20,17 @@ function getRequiredEnv(name: string) {
 
 const verificationExpiresInSeconds = 3600;
 
-const appURL =
-  process.env.NEXT_PUBLIC_APP_URL ||
-  process.env.BETTER_AUTH_URL ||
-  "http://localhost:3000";
+const baseURL = process.env.BETTER_AUTH_URL || "http://localhost:3000";
+const appURL = process.env.NEXT_PUBLIC_APP_URL || baseURL;
 
 function buildVerificationPageUrl(token: string, email: string) {
   return `${appURL}/verify-email?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`;
 }
 
-async function sendVerificationEmailForUser(user: { email: string; name?: string | null }) {
+async function sendVerificationEmailForUser(user: {
+  email: string;
+  name?: string | null;
+}) {
   const token = await createEmailVerificationToken(
     getRequiredEnv("BETTER_AUTH_SECRET"),
     user.email,
@@ -47,7 +48,7 @@ async function sendVerificationEmailForUser(user: { email: string; name?: string
 export const auth = betterAuth({
   appName: "PattayaBev",
   database: db,
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  baseURL,
   trustedOrigins: [
     "http://localhost:3000",
     "https://pattayabev-azih1vgoi-chayada9871s-projects.vercel.app"
