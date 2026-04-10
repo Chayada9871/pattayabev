@@ -51,7 +51,8 @@ export const auth = betterAuth({
   baseURL,
   trustedOrigins: [
     "http://localhost:3000",
-    "https://pattayabev-azih1vgoi-chayada9871s-projects.vercel.app"
+    "https://pattayabev-azih1vgoi-chayada9871s-projects.vercel.app",
+    "https://*.vercel.app"
   ],
   secret: getRequiredEnv("BETTER_AUTH_SECRET"),
   plugins: [nextCookies()],
