@@ -23,7 +23,7 @@ function getSafeNextPath(nextPath: string | null, fallback: string) {
   return fallback;
 }
 
-/* ✅ MOVE ALL LOGIC HERE */
+/* ✅ ALL LOGIC HERE */
 function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -84,7 +84,7 @@ function RegisterContent() {
     if (password !== confirmPassword) {
       setMessage({
         type: "error",
-        text: "รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน"
+        text: "รหัสผ่านไม่ตรงกัน"
       });
       return;
     }
@@ -96,7 +96,7 @@ function RegisterContent() {
     setLoading(true);
     setMessage({
       type: "success",
-      text: "กำลังสร้างบัญชีของคุณ..."
+      text: "กำลังสร้างบัญชี..."
     });
 
     const { error } = await authClient.signUp.email({
@@ -119,39 +119,7 @@ function RegisterContent() {
     setPendingVerificationEmail(email.trim());
     setMessage({
       type: "success",
-      text: "เราได้ส่งอีเมลยืนยันไปยังกล่องจดหมายของคุณแล้ว"
-    });
-    setPassword("");
-    setConfirmPassword("");
-  };
-
-  const handleResendVerification = async () => {
-    if (!pendingVerificationEmail) return;
-
-    setResending(true);
-
-    const callbackURL = nextPath
-      ? `/login?verified=1&next=${encodeURIComponent(nextPath)}`
-      : "/login?verified=1";
-
-    const { error } = await authClient.sendVerificationEmail({
-      email: pendingVerificationEmail,
-      callbackURL
-    });
-
-    setResending(false);
-
-    if (error) {
-      setMessage({
-        type: "error",
-        text: normalizeAuthError(error)
-      });
-      return;
-    }
-
-    setMessage({
-      type: "success",
-      text: "ส่งอีเมลยืนยันให้อีกครั้งแล้ว"
+      text: "ส่งอีเมลยืนยันแล้ว"
     });
   };
 
@@ -160,18 +128,13 @@ function RegisterContent() {
       title="สมัครสมาชิก"
       subtitle={
         <>
-          มีบัญชีอยู่แล้วใช่ไหม{" "}
-          <Link
-            className="font-extrabold underline underline-offset-4"
-            href={loginHref}
-          >
-            เข้าสู่ระบบ
-          </Link>
+          มีบัญชีอยู่แล้ว{" "}
+          <Link href={loginHref}>เข้าสู่ระบบ</Link>
         </>
       }
     >
-      {/* ✅ KEEP YOUR UI SAME */}
-      <form className="grid gap-5" onSubmit={handleSubmit}>
+      {/* keep your UI */}
+      <form onSubmit={handleSubmit}>
         {/* your inputs unchanged */}
       </form>
 
