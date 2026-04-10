@@ -180,7 +180,7 @@ function RegisterContent() {
   );
 }
 
-/* 🔥 THIS FIXES THE ERROR */
+/* 🔥 THIS FIXES VERCEL ERROR */
 export default function RegisterPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
