@@ -152,56 +152,62 @@ function LoginContent() {
         </>
       }
     >
-      <form className="grid gap-5" onSubmit={handleSubmit}>
-        <label className="grid gap-2 text-left text-sm font-bold uppercase tracking-[0.08em]">
-          อีเมล <span className="text-wine">*</span>
-          <input
-            className="min-h-14 rounded-2xl border border-[#d7cec1] bg-[#fffdf9] px-4 text-base text-ink placeholder:text-[#8d8d8d] focus:border-gold focus:ring-4 focus:ring-[#b8924724]"
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="example@email.com"
-            type="email"
-            value={email}
-          />
-        </label>
+      <div className="mx-auto mt-8 w-full max-w-2xl">
+        <form className="grid w-full gap-5" onSubmit={handleSubmit}>
+          <label className="block text-left text-sm font-bold uppercase tracking-[0.08em] text-ink">
+            <span className="mb-2 block">
+              อีเมล <span className="text-wine">*</span>
+            </span>
+            <input
+              className="block w-full min-h-14 rounded-2xl border border-[#d7cec1] bg-[#fffdf9] px-4 text-base text-ink outline-none placeholder:text-[#8d8d8d] focus:border-gold focus:ring-4 focus:ring-[#b8924724]"
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="example@email.com"
+              type="email"
+              value={email}
+            />
+          </label>
 
-        <label className="grid gap-2 text-left text-sm font-bold uppercase tracking-[0.08em]">
-          รหัสผ่าน <span className="text-wine">*</span>
-          <input
-            className="min-h-14 rounded-2xl border border-[#d7cec1] bg-[#fffdf9] px-4 text-base text-ink placeholder:text-[#8d8d8d] focus:border-gold focus:ring-4 focus:ring-[#b8924724]"
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="กรอกรหัสผ่าน"
-            type="password"
-            value={password}
-          />
-        </label>
+          <label className="block text-left text-sm font-bold uppercase tracking-[0.08em] text-ink">
+            <span className="mb-2 block">
+              รหัสผ่าน <span className="text-wine">*</span>
+            </span>
+            <input
+              className="block w-full min-h-14 rounded-2xl border border-[#d7cec1] bg-[#fffdf9] px-4 text-base text-ink outline-none placeholder:text-[#8d8d8d] focus:border-gold focus:ring-4 focus:ring-[#b8924724]"
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="กรอกรหัสผ่าน"
+              type="password"
+              value={password}
+            />
+          </label>
 
-        <button
-          className="min-h-[58px] rounded-2xl bg-[linear-gradient(135deg,#171212_0%,#302520_100%)] text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_16px_28px_rgba(23,18,18,0.18)] disabled:cursor-wait disabled:opacity-70"
-          disabled={loading}
-          type="submit"
+          <button
+            className="block w-full min-h-[58px] rounded-2xl bg-[linear-gradient(135deg,#171212_0%,#302520_100%)] px-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_16px_28px_rgba(23,18,18,0.18)] disabled:cursor-wait disabled:opacity-70"
+            disabled={loading}
+            type="submit"
+          >
+            {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
+          </button>
+        </form>
+
+        <p
+          className={`mt-4 min-h-6 text-left text-sm font-semibold ${
+            message?.type === "error" ? "text-[#ef473a]" : "text-[#1a7f37]"
+          }`}
         >
-          {loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
-        </button>
-      </form>
+          {message?.text}
+        </p>
 
-      <p
-        className={`mt-4 min-h-6 text-left text-sm font-semibold ${
-          message?.type === "error" ? "text-[#ef473a]" : "text-[#1a7f37]"
-        }`}
-      >
-        {message?.text}
-      </p>
-
-      {pendingVerificationEmail ? (
-        <button
-          className="mt-4 rounded-full border border-[#d8cec0] px-5 py-3 text-sm font-bold uppercase tracking-[0.12em] text-ink disabled:cursor-wait disabled:opacity-60"
-          disabled={resending}
-          onClick={handleResendVerification}
-          type="button"
-        >
-          {resending ? "กำลังส่ง..." : "ส่งอีเมลยืนยันอีกครั้ง"}
-        </button>
-      ) : null}
+        {pendingVerificationEmail ? (
+          <button
+            className="mt-4 inline-flex rounded-full border border-[#d8cec0] px-5 py-3 text-sm font-bold uppercase tracking-[0.12em] text-ink disabled:cursor-wait disabled:opacity-60"
+            disabled={resending}
+            onClick={handleResendVerification}
+            type="button"
+          >
+            {resending ? "กำลังส่ง..." : "ส่งอีเมลยืนยันอีกครั้ง"}
+          </button>
+        ) : null}
+      </div>
     </AuthShell>
   );
 }
