@@ -19,7 +19,6 @@ function getRequiredEnv(name: string) {
 }
 
 const verificationExpiresInSeconds = 3600;
-
 const baseURL = process.env.BETTER_AUTH_URL || "http://localhost:3000";
 const appURL = process.env.NEXT_PUBLIC_APP_URL || baseURL;
 
